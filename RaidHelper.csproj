@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <Reference Include="Lunar">
-      <HintPath>..\..\lunar\Lunar\bin\Debug\net5.0\Lunar.dll</HintPath>
+      <HintPath>..\Lunar\Lunar\bin\Debug\net5.0\Lunar.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -37,6 +37,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="src\NetClasses\private_key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

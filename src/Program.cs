@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Lunar;
+using System.Security.Cryptography;
 
 namespace Raid
 {
@@ -15,8 +16,8 @@ namespace Raid
             AttachHandle attach = new AttachHandle();
             attach.Main();
             //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Auth());
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Auth());
             //Debugging();
             //AttachToRaid();
         }

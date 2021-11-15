@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Net.Http;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace RaidHelper
 {
@@ -11,15 +12,19 @@ namespace RaidHelper
     {
         static readonly HttpClient client = new HttpClient();
         string address;
+        string ServerIp;
         public string Sender(string user, string password, string hwid)
         {
             byte[] bytes = new byte[1024];
+
+            GitServer();
+
             IPAddress ipAddress = IPAddress.Parse("82.213.222.152");
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65432);
 
             Socket sender = new Socket(ipAddress.AddressFamily,
             SocketType.Stream, ProtocolType.Tcp);
-            sender.Connect(remoteEP);
+            /*sender.Connect(remoteEP);
 
             Console.WriteLine("Socket connected to {0}",
             sender.RemoteEndPoint.ToString());
@@ -34,9 +39,9 @@ namespace RaidHelper
                 Encoding.ASCII.GetString(bytes, 0, bytesRec));
 
             sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
+            sender.Close();*/
 
-            return Encoding.ASCII.GetString(bytes, 0, bytesRec);
+            return "a";//Encoding.ASCII.GetString(bytes, 0, bytesRec);
         }
 
         private async void PublicIp()
@@ -45,6 +50,15 @@ namespace RaidHelper
             response.EnsureSuccessStatusCode();
             address = await response.Content.ReadAsStringAsync();
 
+        }
+        private async void GitServer()
+        {
+
+            byte[] GitData;
+            HttpResponseMessage response = await client.GetAsync("https://raw.githubusercontent.com/Hanndel/Something/master/ip.txt");
+            response.EnsureSuccessStatusCode();
+            GitData = await response.Content.ReadAsByteArrayAsync();
+            ServerIp = GetServerIp(GitData);
         }
         public static string CreateMD5(string input)
         {
@@ -60,6 +74,14 @@ namespace RaidHelper
                 }
                 return sb.ToString();
             }
+        }
+        private string GetServerIp(byte[] Data)
+        {
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            RSA.ImportFromPem(File.ReadAllText("src/NetClasses/private_key.pem"));
+            string ServerIp = Encoding.ASCII.GetString(RSA.Decrypt(Data, true));
+
+            return ServerIp;
         }
     }
 }
