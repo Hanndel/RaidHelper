@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using RaidHelper;
+using System.Threading.Tasks;
 
 namespace Raid.gui
 {
@@ -23,30 +24,31 @@ namespace Raid.gui
 
         }
         //Log-in
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
-            NetHandler ak = new NetHandler();
+            NetHandler netHandler = new NetHandler();
             string hwid;
             hwid = System.Security.Principal.WindowsIdentity.GetCurrent().User.Value;
             Program main = new Program();
-            main.OpenPastLogin(ak.Sender(textBox1.Text, textBox2.Text, hwid));
-
+            var resultSender = netHandler.SenderAsync(textBox1.Text, new LocalEncrypt(textBox2.Text).Encrypt(), hwid);
+            var result = await resultSender;
+            SettingsHandler ak = checkBox1.Checked ? new SettingsHandler("Remember", new string[] { textBox1.Text, textBox2.Text}, true) : new SettingsHandler("Forget", new string[] { "","" }, false); 
+            main.OpenPastLogin(result);
+            
 
         }
 
         //Remember
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxRemember(object sender, EventArgs e)
         {
-
+            
         }
 
         //Auto log-in
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxAutoLog(object sender, EventArgs e)
         {
+            SettingsHandler _nothing = new SettingsHandler("AutoLog", new string[0], true);
 
         }
-
-
-
     }
 }

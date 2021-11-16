@@ -10,13 +10,6 @@ namespace RaidHelper
     {
         private IntPtr Handle;
         private IntPtr ClassPtr;
-        public ArtifactClass(IntPtr ptr)
-        {
-            Handle = Globals.Handle;
-            ClassPtr = ptr;
-            ArtifactParser(ClassPtr);
-        }
-
         long FailedUpgrades;
         long id;
         bool IsActivated;
@@ -33,7 +26,12 @@ namespace RaidHelper
         string setKindId;
         long upgradeTime;
         bool isSeen;
-
+        public ArtifactClass(IntPtr ptr)
+        {
+            Handle = Globals.Handle;
+            ClassPtr = ptr;
+            ArtifactParser(ClassPtr);
+        }
 
         public void ArtifactParser(IntPtr ptr)
         {

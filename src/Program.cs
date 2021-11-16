@@ -1,12 +1,10 @@
-﻿using Raid.gui;
-using RaidHelper;
-using System;
+﻿using System;
+using Raid.gui;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Lunar;
-using System.Security.Cryptography;
+using System.Threading.Tasks;
 
-namespace Raid
+namespace RaidHelper
 {
     public class Program
     {
@@ -17,7 +15,9 @@ namespace Raid
             attach.Main();
             //Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            AutoLogin.AutoLog();
             Application.Run(new Auth());
+
             //Debugging();
             //AttachToRaid();
         }
@@ -34,8 +34,9 @@ namespace Raid
 
         public void OpenPastLogin(string result)
         {
-            if (result == "AllGood")
+            if (result.Equals("AllGood"))
             {
+                Globals.Logged = true;
                 Auth currentForm = (Auth)Auth.ActiveForm;
                 currentForm.Visible = false;
                 Form maintab = new MainGui();

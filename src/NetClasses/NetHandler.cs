@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Net.Sockets;
 using System.Net.Http;
-using System.Text;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace RaidHelper
 {
@@ -12,24 +13,21 @@ namespace RaidHelper
     {
         static readonly HttpClient client = new HttpClient();
         string address;
-        string ServerIp;
-        public string Sender(string user, string password, string hwid)
+        public async Task<string> SenderAsync(string user, string password, string hwid)
         {
+            PublicIp();
+
             byte[] bytes = new byte[1024];
 
-            GitServer();
-
-            IPAddress ipAddress = IPAddress.Parse("82.213.222.152");
+            IPAddress ipAddress = IPAddress.Parse(await GitServer());
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65432);
 
             Socket sender = new Socket(ipAddress.AddressFamily,
             SocketType.Stream, ProtocolType.Tcp);
-            /*sender.Connect(remoteEP);
+            sender.Connect(remoteEP);
 
             Console.WriteLine("Socket connected to {0}",
             sender.RemoteEndPoint.ToString());
-            Console.WriteLine(CreateMD5(password));
-            PublicIp();
             byte[] msg = Encoding.ASCII.GetBytes(user + "," + CreateMD5(user) + "," + CreateMD5(password) + "," + address + "," + hwid);
 
             int bytesSent = sender.Send(msg);
@@ -39,9 +37,9 @@ namespace RaidHelper
                 Encoding.ASCII.GetString(bytes, 0, bytesRec));
 
             sender.Shutdown(SocketShutdown.Both);
-            sender.Close();*/
+            sender.Close();
 
-            return "a";//Encoding.ASCII.GetString(bytes, 0, bytesRec);
+            return Encoding.ASCII.GetString(bytes, 0, bytesRec);
         }
 
         private async void PublicIp()
@@ -51,14 +49,18 @@ namespace RaidHelper
             address = await response.Content.ReadAsStringAsync();
 
         }
-        private async void GitServer()
+        private async Task<string> GitServer()
         {
 
-            byte[] GitData;
-            HttpResponseMessage response = await client.GetAsync("https://raw.githubusercontent.com/Hanndel/Something/master/ip.txt");
-            response.EnsureSuccessStatusCode();
-            GitData = await response.Content.ReadAsByteArrayAsync();
-            ServerIp = GetServerIp(GitData);
+            byte[] IpData;
+            byte[] IvData;
+            HttpResponseMessage IpResponse = await client.GetAsync("https://raw.githubusercontent.com/Hanndel/Something/master/ip.txt");
+            IpResponse.EnsureSuccessStatusCode();
+            HttpResponseMessage IvResponse = await client.GetAsync("https://raw.githubusercontent.com/Hanndel/Something/master/Iv.txt");
+            IvResponse.EnsureSuccessStatusCode();
+            IpData = await IpResponse.Content.ReadAsByteArrayAsync();
+            IvData = await IvResponse.Content.ReadAsByteArrayAsync();
+            return GetServerIp(IpData, IvData);
         }
         public static string CreateMD5(string input)
         {
@@ -75,12 +77,29 @@ namespace RaidHelper
                 return sb.ToString();
             }
         }
-        private string GetServerIp(byte[] Data)
+        private string GetServerIp(byte[] Data, byte[] Iv)
         {
-            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            RSA.ImportFromPem(File.ReadAllText("src/NetClasses/private_key.pem"));
-            string ServerIp = Encoding.ASCII.GetString(RSA.Decrypt(Data, true));
+            String ServerIp;
+            Aes AES = Aes.Create();
+            AES.Key = File.ReadAllBytes("Config/Key.txt");
+            AES.IV = Iv;
+            AES.Padding = PaddingMode.None;
+            ICryptoTransform decryptor = AES.CreateDecryptor(AES.Key, AES.IV);
+            using (MemoryStream msDecrypt = new MemoryStream(Data))
+            {
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                {
+                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    {
 
+                        // Read the decrypted bytes from the decrypting stream
+                        // and place them in a string.
+                        ServerIp = srDecrypt.ReadToEnd();
+                    }
+                }
+            }
+            int position = ServerIp.IndexOf("P");
+            ServerIp = position > -1 ? ServerIp.Substring(0, ServerIp.IndexOf("P")) : ServerIp;
             return ServerIp;
         }
     }
