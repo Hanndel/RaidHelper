@@ -22,21 +22,21 @@ namespace RaidHelper
 			NewClass = ProcessApi.FindDMAAddy(Handle, (IntPtr)(Base+0x10), new int[] {0x18, 0x10, 0x10, 0x0});
 			return NewClass;
 		}
-		public List<ArtifactClass> Artifacts()
+		public async Task<List<ArtifactClass>> ArtifactsAsync()
 		{
 			int Count = (int)ReturnRead(Handle, this.ArtifactsPointerList() + 0x18);
-			List<ArtifactClass> ArtifactReturning = new List<ArtifactClass>();
+			List<Task<ArtifactClass>> ArtifactReturning = new List<Task<ArtifactClass>>();
 			for (int i = 0; i < Count; i++)
-            {
+			{
 				int position = (0x20 + (i * 0x8));
 				IntPtr validPtr = ReturnRead(Handle, this.ArtifactsPointerList() + position);
 				if (validPtr != IntPtr.Zero)
-                {
-					ArtifactReturning.Add(new ArtifactClass(validPtr));
-
+				{
+					ArtifactReturning.Add(Task.Run(() => new ArtifactClass(validPtr)));
 				}
 			}
-			return ArtifactReturning;
+			ArtifactClass[] result = await Task.WhenAll(ArtifactReturning);
+			return result.ToList<ArtifactClass>();
 		}
 
 		private IntPtr BytesToHexa(byte[] array)

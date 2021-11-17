@@ -24,8 +24,8 @@ namespace RaidHelper
                     settings.Save();
                     break;
                 case "Forget":
-                    settings.User = data[0];
-                    settings.Password = data[1];
+                    settings.User = "";
+                    settings.Password = "";
                     settings.Remember = isIt;
                     settings.Save();
                     break;

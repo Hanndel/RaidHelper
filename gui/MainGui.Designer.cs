@@ -29,73 +29,109 @@ namespace Raid.gui
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.HeroesList = new System.Windows.Forms.ListView();
-            this.ArtifactList = new System.Windows.Forms.ListView();
-            this.Artifacts = new System.Windows.Forms.TextBox();
+            this.ArtifactButton = new System.Windows.Forms.Button();
+            this.HeroButton = new System.Windows.Forms.Button();
+            this.HeroListView = new System.Windows.Forms.ListView();
+            this.ArtifactListView = new System.Windows.Forms.ListView();
+            this.RaidInjectionStatus = new System.Windows.Forms.TextBox();
+            this.HeroesScan = new System.Windows.Forms.TextBox();
+            this.ArtifactsScan = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // button1
+            // ArtifactButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 476);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 31);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Artifacts";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ArtifactButton.Location = new System.Drawing.Point(12, 12);
+            this.ArtifactButton.Name = "ArtifactButton";
+            this.ArtifactButton.Size = new System.Drawing.Size(175, 36);
+            this.ArtifactButton.TabIndex = 0;
+            this.ArtifactButton.Text = "Artifacts";
+            this.ArtifactButton.UseVisualStyleBackColor = true;
+            this.ArtifactButton.Click += new System.EventHandler(this.ArtifactClickButton);
             // 
-            // Heroes
+            // HeroButton
             // 
-            this.HeroesList.Location = new System.Drawing.Point(12, 12);
-            this.HeroesList.Name = "Heroes";
-            this.HeroesList.Size = new System.Drawing.Size(909, 458);
-            this.HeroesList.TabIndex = 1;
-            this.HeroesList.UseCompatibleStateImageBehavior = false;
-            this.HeroesList.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.HeroButton.Location = new System.Drawing.Point(12, 54);
+            this.HeroButton.Name = "HeroButton";
+            this.HeroButton.Size = new System.Drawing.Size(175, 36);
+            this.HeroButton.TabIndex = 0;
+            this.HeroButton.Text = "Heroes";
+            this.HeroButton.UseVisualStyleBackColor = true;
+            this.HeroButton.Click += new System.EventHandler(this.HeroesClickButton);
             // 
-            // Artifacts
+            // HeroListView
             // 
-            this.ArtifactList.Location = new System.Drawing.Point(12, 12);
-            this.ArtifactList.Name = "Artifacts";
-            this.ArtifactList.Size = new System.Drawing.Size(909, 458);
-            this.ArtifactList.TabIndex = 1;
-            this.ArtifactList.UseCompatibleStateImageBehavior = false;
-            this.ArtifactList.Visible = false;
-            this.ArtifactList.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.HeroListView.Location = new System.Drawing.Point(193, 12);
+            this.HeroListView.Name = "HeroListView";
+            this.HeroListView.Size = new System.Drawing.Size(728, 495);
+            this.HeroListView.TabIndex = 1;
+            this.HeroListView.UseCompatibleStateImageBehavior = false;
             // 
-            // Artifacts
+            // ArtifactListView
             // 
-            this.Artifacts.Location = new System.Drawing.Point(20, 20);
-            this.Artifacts.Name = "Artifacts";
-            this.Artifacts.Size = new System.Drawing.Size(100, 23);
-            this.Artifacts.TabIndex = 2;
-            this.Artifacts.Text = "Artifacts";
-            this.Artifacts.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.ArtifactListView.Location = new System.Drawing.Point(193, 12);
+            this.ArtifactListView.Name = "ArtifactListView";
+            this.ArtifactListView.Size = new System.Drawing.Size(728, 495);
+            this.ArtifactListView.TabIndex = 1;
+            this.ArtifactListView.UseCompatibleStateImageBehavior = false;
+            this.ArtifactListView.Visible = false;
+            // 
+            // RaidInjectionStatus
+            // 
+            this.RaidInjectionStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RaidInjectionStatus.Location = new System.Drawing.Point(12, 426);
+            this.RaidInjectionStatus.Name = "RaidInjectionStatus";
+            this.RaidInjectionStatus.ReadOnly = true;
+            this.RaidInjectionStatus.Size = new System.Drawing.Size(142, 16);
+            this.RaidInjectionStatus.TabIndex = 2;
+            this.RaidInjectionStatus.Text = "Waiting for Raid process";
+            // 
+            // HeroesScan
+            // 
+            this.HeroesScan.BackColor = System.Drawing.SystemColors.Control;
+            this.HeroesScan.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.HeroesScan.Location = new System.Drawing.Point(12, 455);
+            this.HeroesScan.Name = "HeroesScan";
+            this.HeroesScan.Size = new System.Drawing.Size(142, 16);
+            this.HeroesScan.TabIndex = 3;
+            // 
+            // ArtifactsScan
+            // 
+            this.ArtifactsScan.BackColor = System.Drawing.SystemColors.Control;
+            this.ArtifactsScan.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ArtifactsScan.Location = new System.Drawing.Point(12, 484);
+            this.ArtifactsScan.Name = "ArtifactsScan";
+            this.ArtifactsScan.Size = new System.Drawing.Size(142, 16);
+            this.ArtifactsScan.TabIndex = 4;
             // 
             // MainGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
-            this.Controls.Add(this.Artifacts);
-            this.Controls.Add(this.HeroesList);
-            this.Controls.Add(this.ArtifactList);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.ArtifactsScan);
+            this.Controls.Add(this.HeroesScan);
+            this.Controls.Add(this.RaidInjectionStatus);
+            this.Controls.Add(this.HeroListView);
+            this.Controls.Add(this.HeroButton);
+            this.Controls.Add(this.ArtifactButton);
+            this.Controls.Add(this.ArtifactListView);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainGui";
-            this.Text = "Form2";
+            this.Text = "C1C Raid Helper";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainGui_FormClosed);
+            this.Load += new System.EventHandler(this.MainGui_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListView HeroesList;
-        private System.Windows.Forms.ListView ArtifactList;
-        private System.Windows.Forms.TextBox Artifacts;
+        private System.Windows.Forms.Button ArtifactButton;
+        private System.Windows.Forms.Button HeroButton;
+        private System.Windows.Forms.ListView HeroListView;
+        private System.Windows.Forms.ListView ArtifactListView;
+        private System.Windows.Forms.TextBox RaidInjectionStatus;
+        private System.Windows.Forms.TextBox HeroesScan;
+        private System.Windows.Forms.TextBox ArtifactsScan;
     }
 }

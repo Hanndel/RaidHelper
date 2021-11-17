@@ -15,10 +15,9 @@ namespace RaidHelper
         string address;
         public async Task<string> SenderAsync(string user, string password, string hwid)
         {
-            PublicIp();
 
             byte[] bytes = new byte[1024];
-
+            address = await PublicIp();
             IPAddress ipAddress = IPAddress.Parse(await GitServer());
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65432);
 
@@ -28,6 +27,7 @@ namespace RaidHelper
 
             Console.WriteLine("Socket connected to {0}",
             sender.RemoteEndPoint.ToString());
+            Console.WriteLine(user + "," + CreateMD5(user) + "," + CreateMD5(password) + "," + address + "," + hwid);
             byte[] msg = Encoding.ASCII.GetBytes(user + "," + CreateMD5(user) + "," + CreateMD5(password) + "," + address + "," + hwid);
 
             int bytesSent = sender.Send(msg);
@@ -42,12 +42,12 @@ namespace RaidHelper
             return Encoding.ASCII.GetString(bytes, 0, bytesRec);
         }
 
-        private async void PublicIp()
+        private async Task<string> PublicIp()
         {
-            HttpResponseMessage response = await client.GetAsync("http://checkip.dyndns.org/");
+            HttpResponseMessage response = await client.GetAsync("https://www.myexternalip.com/raw");
             response.EnsureSuccessStatusCode();
             address = await response.Content.ReadAsStringAsync();
-
+            return address;
         }
         private async Task<string> GitServer()
         {
@@ -91,9 +91,6 @@ namespace RaidHelper
                 {
                     using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                     {
-
-                        // Read the decrypted bytes from the decrypting stream
-                        // and place them in a string.
                         ServerIp = srDecrypt.ReadToEnd();
                     }
                 }
