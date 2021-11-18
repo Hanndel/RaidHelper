@@ -83,9 +83,9 @@ namespace Raid.gui
             NetHandler netHandler = new NetHandler();
             string hwid;
             hwid = System.Security.Principal.WindowsIdentity.GetCurrent().User.Value;
-            var resultSender = netHandler.SenderAsync(textBox1.Text, new LocalEncrypt(textBox2.Text).Encrypt(), hwid);
+            var resultSender = netHandler.SenderAsync(textBox1.Text, new LocalEncrypt(textBox2.Text).Encrypt(), hwid);//Change how to pull the password
             var result = await resultSender;
-            SettingsHandler settings = this.checkBox1.Checked ? new SettingsHandler("Remember", new string[] {textBox1.Text, textBox2.Text}, true) : new SettingsHandler("Forget", new string[0], false);
+            SettingsHandler settings = this.checkBox1.Checked ? new SettingsHandler("Remember", new string[] {textBox1.Text, textBox2.Text}, true) : new SettingsHandler("Forget", new string[0], false); //Change how to store the password
             return result;
         }
     }
