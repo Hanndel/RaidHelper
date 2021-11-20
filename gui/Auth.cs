@@ -5,7 +5,7 @@ using RaidHelper.Config;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Raid.gui
+namespace RaidHelper.gui
 {
     public partial class Auth : Form
     {

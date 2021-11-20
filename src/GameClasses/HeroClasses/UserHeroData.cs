@@ -13,6 +13,7 @@ namespace RaidHelper
 		public IntPtr Handle = IntPtr.Zero;
 		private TextBox TextBox;
 		private ListView ListView;
+
 		public UserHeroData(TextBox textBox, ListView viewToHandle)
 		{
 			TextBox = textBox;
@@ -27,9 +28,9 @@ namespace RaidHelper
 			return HeroEntriePtr;
 		}
 
-		public async Task HeroesAsync()
+		public async Task<Dictionary<int, HeroClass>> HeroesAsync()
         {
-			IntPtr HeroEntryPtr= HeroById();
+			IntPtr HeroEntryPtr = HeroById();
 			IntPtr HeroListBasePtr = ProcessApi.GetPointer(HeroEntryPtr, 0x18)+0x30;
 			int HeroCount = (int)(long)ProcessApi.ReturnRead(HeroEntryPtr+0x20);
 			List<Task<HeroClass>> HeroList= new List<Task<HeroClass>>();
@@ -46,20 +47,22 @@ namespace RaidHelper
 			HeroClass[] result = await Task.WhenAll(HeroList);
 			List<HeroClass> HeroAsList = result.ToList();
 			List<Task<ListViewItem>> AddTask = new List<Task<ListViewItem>>();
+			Dictionary<int, HeroClass> HeroDict = new Dictionary<int, HeroClass>();
 			foreach (HeroClass resultAs in HeroAsList)
 			{
 				ListViewItem row = new ListViewItem(resultAs._Type.name);
+				row.SubItems.Add(resultAs.Id.ToString());
 				AddTask.Add(Task.Run(() =>
 					ListView.Invoke(() =>
 						ListView.Items.Add(row)
 					)
 				));
+				HeroDict.Add(resultAs.Id, resultAs);
 			}
 			await Task.WhenAll(AddTask);
 			ListView.Invoke(() => ListView.Visible = true);
 			ListView.Invoke(() => ListView.View = View.Details);
-
-			Console.WriteLine();
+			return HeroDict;
 		}
 	}
 }

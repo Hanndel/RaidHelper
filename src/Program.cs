@@ -1,5 +1,5 @@
 ﻿using System;
-using Raid.gui;
+using RaidHelper.gui;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;

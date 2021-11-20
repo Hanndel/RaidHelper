@@ -17,9 +17,8 @@ namespace RaidHelper
         private TextBox HeroesBox;
         private TextBox ArtifactsBox;
         private Process RaidProc;
-
-
-
+        private Dictionary<int, HeroClass> HeroDict;
+        private Dictionary<int, ArtifactClass> ArtifactDict;
 
 
         public void AttachToRaid(TextBox formToHandle)
@@ -33,11 +32,9 @@ namespace RaidHelper
                     RaidProc = Process.GetProcessesByName("Raid")[0];
                     AttachBox.Invoke(ChangeRaidStatus);
                     IsAttached = true;
-
                 }
                 catch (System.IndexOutOfRangeException e)
                 {
-
                     Console.WriteLine(e);
                 }
             }
@@ -51,29 +48,32 @@ namespace RaidHelper
                     if (Globals.Base != IntPtr.Zero) { GameAssembly = true; }
 
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (System.IndexOutOfRangeException e)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     IsAttached = false;
                 }
             }
         }
 
-        public async Task HeroesScan(TextBox formToHandle, ListView viewToHandle)
+        public async Task<Dictionary<int, HeroClass>> HeroesScan(TextBox formToHandle, ListView viewToHandle)
         {
             HeroesBox = formToHandle;
             HeroesBox.Invoke(ChangeHeroesStatus);
             UserHeroData Heroes = new UserHeroData(formToHandle, viewToHandle);
-            await Heroes.HeroesAsync();
-            viewToHandle.Invoke(() => viewToHandle.Items.Add(viewToHandle.Text));
+            HeroDict = await Heroes.HeroesAsync();
             ArtifactsBox.Invoke(ChangeHeroesStatus);
+            return HeroDict;
+
         }
+
         public async Task ArtifactsScan(TextBox formToHandle, ListView viewToHandle)
         {
             ArtifactsBox = formToHandle;
             ArtifactsBox.Invoke(ChangeArtifactsStatus);
             ArtifactListClass ArtifactListClass = new ArtifactListClass(formToHandle, viewToHandle);
             await ArtifactListClass.ArtifactsAsync();
-            viewToHandle.Invoke(() => viewToHandle.Items.Add(viewToHandle.Text));
             ArtifactsBox.Invoke(ChangeArtifactsStatus);
         }
 
@@ -81,21 +81,15 @@ namespace RaidHelper
         {
             AttachBox.Text = "Raid process found!";
         }
+
         private void ChangeHeroesStatus()
         {
             HeroesBox.Text = "Scanning Heroes" == HeroesBox.Text ? "Heroes finished scanning!": "Scanning Heroes";
         }
+
         private void ChangeArtifactsStatus()
         {
             ArtifactsBox.Text = "Scanning Artifacts" == ArtifactsBox.Text ? "Artifacts finished scanning!" : "Scanning Artifacts";
-        }
-        private async Task UpdateArtifacts()
-        {
-
-        }
-        private async Task UpdateHeroes()
-        {
-
         }
     }
 }

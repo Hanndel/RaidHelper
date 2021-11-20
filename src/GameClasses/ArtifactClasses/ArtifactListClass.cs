@@ -22,12 +22,14 @@ namespace RaidHelper
 			Base = ProcessApi.FindDMAAddy(Globals.Handle, (IntPtr)(Globals.Base + 0x0358B990), ArtifactListPointers);
 			Handle = Globals.Handle;
 		}
+
 		public IntPtr ArtifactsPointerList()
 		{
 			IntPtr NewClass = IntPtr.Zero;
 			NewClass = ProcessApi.FindDMAAddy(Handle, (IntPtr)(Base+0x10), new int[] {0x18, 0x10, 0x10, 0x0});
 			return NewClass;
 		}
+
 		public async Task ArtifactsAsync()
 		{
 			int Count = (int)ReturnRead(Handle, this.ArtifactsPointerList() + 0x18);
@@ -58,12 +60,6 @@ namespace RaidHelper
 			ListView.Invoke(() =>  ListView.Visible = true);
 
 			ListView.Invoke(() => ListView.View = View.Details);
-		}
-		private void AddColumns()
-		{
-			ListView.Columns.Add("Item Column", -2, HorizontalAlignment.Left);
-			ListView.Columns.Add("Item Column", -2, HorizontalAlignment.Left);
-
 		}
 
 		private IntPtr BytesToHexa(byte[] array)

@@ -1,5 +1,5 @@
 ﻿using RaidHelper.Config;
-namespace Raid.gui
+namespace RaidHelper.gui
 {
     partial class Auth
     {
@@ -38,8 +38,8 @@ namespace Raid.gui
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             Settings settings = new Settings();
             this.textBox1.Location = new System.Drawing.Point(15, 14);
@@ -47,7 +47,7 @@ namespace Raid.gui
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(135, 23);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = settings.User.Length > 1 ? settings.User : "Username" ;
+            this.textBox1.Text = settings.User.Length > 1 ? settings.User : "Username";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
@@ -70,7 +70,7 @@ namespace Raid.gui
             this.textBox2.Size = new System.Drawing.Size(134, 23);
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = settings.Password.Length > 1 ? settings.Password : "Password";
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);            
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // checkBox1
             // 

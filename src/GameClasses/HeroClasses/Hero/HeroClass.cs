@@ -34,7 +34,7 @@ namespace RaidHelper
             _Type = new HeroType(ProcessApi.GetPointer(ClassPtr, 0x10));
             Id = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x18);
             int _TypeId = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x1C);
-            TypeId = (int)Math.Floor((decimal)TypeId/10)*10;
+            TypeId = (int)Math.Truncate((decimal)_TypeId/10)*10;
             Grade = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x20);
             Level = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x24);
             Experience = (int)(long)ProcessApi.ReturnRead(ClassPtr+0x28);

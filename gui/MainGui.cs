@@ -4,13 +4,15 @@ using System.Threading;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
-namespace Raid.gui
+namespace RaidHelper.gui
 {
     public partial class MainGui : Form
     {
         private object ThisForm;
         private AttachHandle GuiAttach = new AttachHandle();
+        private Dictionary<int, HeroClass> HeroDict;
         public MainGui()
         {
             InitializeComponent();
@@ -62,15 +64,24 @@ namespace Raid.gui
         }
         private  async void StartHeroesScan()
         {
-            await Task.Run(() => GuiAttach.HeroesScan(this.HeroesScan, this.HeroListView));
+            HeroDict = await Task.Run(() => GuiAttach.HeroesScan(this.HeroesScan, this.HeroListView));
         }
         private async void StartArtifactScan()
         {
             await Task.Run(() => GuiAttach.ArtifactsScan(this.ArtifactsScan, this.ArtifactListView));
         }
-        private void DoSomething(object sender, System.EventArgs e)
+        private void OnClickArtifact(object sender, System.EventArgs e)
         {
-            Console.WriteLine("a");
+
+            Console.WriteLine("Artifact "+sender);
+        }
+        private void OnClickHero(object sender, System.EventArgs e)
+        {
+            ListView Clicked = (ListView)sender;
+            int id = Int32.Parse(Clicked.FocusedItem.SubItems[1].Text);
+            Form heroform = new HeroWindow(HeroDict[id]);
+            heroform.Show();
+
         }
     }
 }

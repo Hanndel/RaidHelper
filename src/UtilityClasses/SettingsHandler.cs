@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RaidHelper.Config;
-using Raid.gui;
+using RaidHelper.gui;
 
 namespace RaidHelper
 {

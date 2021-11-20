@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Collections;
-namespace Raid.gui
+namespace RaidHelper.gui
 {
     partial class MainGui
     {
@@ -30,19 +30,19 @@ namespace Raid.gui
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "a",
             "a"}, -1);
             this.ArtifactButton = new System.Windows.Forms.Button();
             this.HeroButton = new System.Windows.Forms.Button();
             this.HeroListView = new System.Windows.Forms.ListView();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.ArtifactListView = new System.Windows.Forms.ListView();
             this.columnHeader0 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.RaidInjectionStatus = new System.Windows.Forms.TextBox();
             this.HeroesScan = new System.Windows.Forms.TextBox();
             this.ArtifactsScan = new System.Windows.Forms.TextBox();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // ArtifactButton
@@ -75,23 +75,27 @@ namespace Raid.gui
             this.HeroListView.TabIndex = 1;
             this.HeroListView.UseCompatibleStateImageBehavior = false;
             this.HeroListView.View = System.Windows.Forms.View.Details;
+            this.HeroListView.ItemActivate += new System.EventHandler(this.OnClickHero);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 200;
             // 
             // ArtifactListView
             // 
             this.ArtifactListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,
             this.columnHeader1});
-            listViewItem3.Tag = "a";
+            listViewItem1.Tag = "a";
             this.ArtifactListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
-            this.ArtifactListView.Location = new System.Drawing.Point(193, 12);
+            listViewItem1});
+            this.ArtifactListView.Location = new System.Drawing.Point(194, 11);
             this.ArtifactListView.Name = "ArtifactListView";
             this.ArtifactListView.Size = new System.Drawing.Size(1258, 495);
             this.ArtifactListView.TabIndex = 1;
             this.ArtifactListView.UseCompatibleStateImageBehavior = false;
             this.ArtifactListView.View = System.Windows.Forms.View.Details;
-            //this.ArtifactListView.SelectedIndexChanged += new System.EventHandler(this.ArtifactListView_SelectedIndexChanged);
-            this.ArtifactListView.Click += new System.EventHandler(this.DoSomething);
+            this.ArtifactListView.ItemActivate += new System.EventHandler(this.OnClickHero);
             // 
             // columnHeader0
             // 
@@ -129,10 +133,6 @@ namespace Raid.gui
             this.ArtifactsScan.Size = new System.Drawing.Size(142, 16);
             this.ArtifactsScan.TabIndex = 4;
             // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 200;
-            // 
             // MainGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -141,9 +141,9 @@ namespace Raid.gui
             this.Controls.Add(this.ArtifactsScan);
             this.Controls.Add(this.HeroesScan);
             this.Controls.Add(this.RaidInjectionStatus);
-            this.Controls.Add(this.HeroListView);
             this.Controls.Add(this.HeroButton);
             this.Controls.Add(this.ArtifactButton);
+            this.Controls.Add(this.HeroListView);
             this.Controls.Add(this.ArtifactListView);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainGui";
