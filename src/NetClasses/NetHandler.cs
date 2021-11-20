@@ -19,7 +19,7 @@ namespace RaidHelper
             byte[] bytes = new byte[1024];
             address = await PublicIp();
             IPAddress ipAddress = IPAddress.Parse(await GitServer());
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65432);
+            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65439);
 
             Socket sender = new Socket(ipAddress.AddressFamily,
             SocketType.Stream, ProtocolType.Tcp);

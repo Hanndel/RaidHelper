@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 using RaidHelper;
+using System.Threading;
+using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Raid.gui
 {
@@ -65,6 +67,10 @@ namespace Raid.gui
         private async void StartArtifactScan()
         {
             await Task.Run(() => GuiAttach.ArtifactsScan(this.ArtifactsScan, this.ArtifactListView));
+        }
+        private void DoSomething(object sender, System.EventArgs e)
+        {
+            Console.WriteLine("a");
         }
     }
 }

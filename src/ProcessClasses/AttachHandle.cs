@@ -62,16 +62,18 @@ namespace RaidHelper
         {
             HeroesBox = formToHandle;
             HeroesBox.Invoke(ChangeHeroesStatus);
-            List<HeroClass> Heroes = await new UserHeroData().HeroesAsync();
-            HeroesBox.Invoke(ChangeHeroesStatus);
+            UserHeroData Heroes = new UserHeroData(formToHandle, viewToHandle);
+            await Heroes.HeroesAsync();
+            viewToHandle.Invoke(() => viewToHandle.Items.Add(viewToHandle.Text));
+            ArtifactsBox.Invoke(ChangeHeroesStatus);
         }
         public async Task ArtifactsScan(TextBox formToHandle, ListView viewToHandle)
         {
             ArtifactsBox = formToHandle;
             ArtifactsBox.Invoke(ChangeArtifactsStatus);
-            ArtifactListClass ArtifactListClass = new ArtifactListClass();
-            List<ArtifactClass> Artefactos = await ArtifactListClass.ArtifactsAsync();
-            
+            ArtifactListClass ArtifactListClass = new ArtifactListClass(formToHandle, viewToHandle);
+            await ArtifactListClass.ArtifactsAsync();
+            viewToHandle.Invoke(() => viewToHandle.Items.Add(viewToHandle.Text));
             ArtifactsBox.Invoke(ChangeArtifactsStatus);
         }
 

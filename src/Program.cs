@@ -13,6 +13,8 @@ namespace RaidHelper
         {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Auth());
+
         }
+
     }
 }

@@ -10,22 +10,22 @@ namespace RaidHelper
     {
         private IntPtr Handle;
         private IntPtr ClassPtr;
-        long FailedUpgrades;
-        long id;
-        bool IsActivated;
-        string KindId;
-        long level;
-        long price;
-        PrimaryBonus primaryBonus;
-        long rankid;
-        string rarityid;
-        string faction;
-        long revision;
-        List<SecondaryBonuses> secondaryBonus;
-        long sellprice;
-        string setKindId;
-        long upgradeTime;
-        bool isSeen;
+        public long FailedUpgrades;
+        public int id;
+        public bool IsActivated;
+        public string KindId;
+        public long level;
+        public long price;
+        public PrimaryBonus primaryBonus;
+        public long rankid;
+        public string rarityid;
+        public string faction;
+        public long revision;
+        public List<SecondaryBonuses> secondaryBonus;
+        public long sellprice;
+        public string setKindId;
+        public long upgradeTime;
+        public bool isSeen;
         public ArtifactClass(IntPtr ptr)
         {
             Handle = Globals.Handle;

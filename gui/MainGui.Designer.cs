@@ -1,4 +1,5 @@
-﻿
+﻿using System.Windows.Forms;
+using System.Collections;
 namespace Raid.gui
 {
     partial class MainGui
@@ -29,13 +30,19 @@ namespace Raid.gui
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            "a",
+            "a"}, -1);
             this.ArtifactButton = new System.Windows.Forms.Button();
             this.HeroButton = new System.Windows.Forms.Button();
             this.HeroListView = new System.Windows.Forms.ListView();
             this.ArtifactListView = new System.Windows.Forms.ListView();
+            this.columnHeader0 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.RaidInjectionStatus = new System.Windows.Forms.TextBox();
             this.HeroesScan = new System.Windows.Forms.TextBox();
             this.ArtifactsScan = new System.Windows.Forms.TextBox();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // ArtifactButton
@@ -60,20 +67,39 @@ namespace Raid.gui
             // 
             // HeroListView
             // 
+            this.HeroListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
             this.HeroListView.Location = new System.Drawing.Point(193, 12);
             this.HeroListView.Name = "HeroListView";
-            this.HeroListView.Size = new System.Drawing.Size(728, 495);
+            this.HeroListView.Size = new System.Drawing.Size(1259, 495);
             this.HeroListView.TabIndex = 1;
             this.HeroListView.UseCompatibleStateImageBehavior = false;
+            this.HeroListView.View = System.Windows.Forms.View.Details;
             // 
             // ArtifactListView
             // 
+            this.ArtifactListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader0,
+            this.columnHeader1});
+            listViewItem3.Tag = "a";
+            this.ArtifactListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem3});
             this.ArtifactListView.Location = new System.Drawing.Point(193, 12);
             this.ArtifactListView.Name = "ArtifactListView";
-            this.ArtifactListView.Size = new System.Drawing.Size(728, 495);
+            this.ArtifactListView.Size = new System.Drawing.Size(1258, 495);
             this.ArtifactListView.TabIndex = 1;
             this.ArtifactListView.UseCompatibleStateImageBehavior = false;
-            this.ArtifactListView.Visible = false;
+            this.ArtifactListView.View = System.Windows.Forms.View.Details;
+            //this.ArtifactListView.SelectedIndexChanged += new System.EventHandler(this.ArtifactListView_SelectedIndexChanged);
+            this.ArtifactListView.Click += new System.EventHandler(this.DoSomething);
+            // 
+            // columnHeader0
+            // 
+            this.columnHeader0.Width = 629;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 629;
             // 
             // RaidInjectionStatus
             // 
@@ -103,11 +129,15 @@ namespace Raid.gui
             this.ArtifactsScan.Size = new System.Drawing.Size(142, 16);
             this.ArtifactsScan.TabIndex = 4;
             // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 200;
+            // 
             // MainGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 519);
+            this.ClientSize = new System.Drawing.Size(1464, 518);
             this.Controls.Add(this.ArtifactsScan);
             this.Controls.Add(this.HeroesScan);
             this.Controls.Add(this.RaidInjectionStatus);
@@ -133,5 +163,8 @@ namespace Raid.gui
         private System.Windows.Forms.TextBox RaidInjectionStatus;
         private System.Windows.Forms.TextBox HeroesScan;
         private System.Windows.Forms.TextBox ArtifactsScan;
+        private ColumnHeader columnHeader0;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

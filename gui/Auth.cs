@@ -70,7 +70,7 @@ namespace Raid.gui
         }
         private async void AutoLog()
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             if (Globals.Logged == false)
             {
                 LoginResult = await LogRequest();
