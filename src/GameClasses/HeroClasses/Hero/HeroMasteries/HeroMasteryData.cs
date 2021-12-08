@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace RaidHelper
 {
-    public  class HeroMasteryData
+    public class HeroMasteryData
     {
         IntPtr ClassPtr;
-        public  HeroMasteryData(IntPtr Ptr)
+        public HeroMasteryData(IntPtr Ptr)
         {
             ClassPtr = Ptr;
             DoTheWork();
@@ -19,7 +19,7 @@ namespace RaidHelper
         {
             this.CurrentAmount = CurrentAmountDict(ProcessApi.GetPointer(ClassPtr, 0x10));
             this.Masteries = new List<int>();
-            this.ResetCount = (int)(long)ProcessApi.ReturnRead(ClassPtr+0x28);
+            this.ResetCount = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x28);
             this.TotalAmount = TotalAmountDict(ProcessApi.GetPointer(ClassPtr, 0x18));
 
         }

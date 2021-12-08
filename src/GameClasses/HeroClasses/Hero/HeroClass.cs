@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RaidHelper
 {
@@ -34,16 +31,16 @@ namespace RaidHelper
             _Type = new HeroType(ProcessApi.GetPointer(ClassPtr, 0x10));
             Id = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x18);
             int _TypeId = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x1C);
-            TypeId = (int)Math.Truncate((decimal)_TypeId/10)*10;
+            TypeId = (int)Math.Truncate((decimal)_TypeId / 10) * 10;
             Grade = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x20);
             Level = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x24);
-            Experience = (int)(long)ProcessApi.ReturnRead(ClassPtr+0x28);
+            Experience = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x28);
             FullExperience = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x2C);
             Locked = UtilityClasses.IntToBool((int)(long)ProcessApi.ReturnRead(ClassPtr + 0x30));
             InStorage = UtilityClasses.IntToBool((int)(long)ProcessApi.ReturnRead(ClassPtr + 0x31));
             HeroMarker = (int)(long)ProcessApi.ReturnRead(ClassPtr + 0x48);
             Skills = new List<Skill>();//ProcessApi.GetPointer(ClassPtr, 0x50)
-            MasteryData = new HeroMasteryData(ProcessApi.GetPointer(ClassPtr,0x58));
+            MasteryData = new HeroMasteryData(ProcessApi.GetPointer(ClassPtr, 0x58));
         }
     }
 }

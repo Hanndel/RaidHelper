@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RaidHelper.Config;
-using RaidHelper.gui;
+﻿using RaidHelper.Config;
 
 namespace RaidHelper
 {
@@ -15,7 +9,7 @@ namespace RaidHelper
         {
             data = data.Length > 0 ? data : new string[] { };
             isIt = isIt ? true : false;
-           switch (mode)
+            switch (mode)
             {
                 case "Remember":
                     settings.User = data[0];
@@ -35,8 +29,6 @@ namespace RaidHelper
                     break;
                 default:
                     break;
-                    
-
             }
         }
 

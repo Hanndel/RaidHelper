@@ -1,20 +1,14 @@
-﻿using System;
-using RaidHelper.gui;
-using System.Diagnostics;
+﻿using RaidHelper.gui;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 
 namespace RaidHelper
 {
     public class Program
     {
-
         static void Main(string[] args)
         {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Auth());
-
         }
-
     }
 }

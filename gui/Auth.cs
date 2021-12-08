@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using RaidHelper;
-using RaidHelper.Config;
-using System.Threading;
+﻿using RaidHelper.Config;
+using System;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RaidHelper.gui
 {
@@ -85,7 +83,7 @@ namespace RaidHelper.gui
             hwid = System.Security.Principal.WindowsIdentity.GetCurrent().User.Value;
             var resultSender = netHandler.SenderAsync(textBox1.Text, new LocalEncrypt(textBox2.Text).Encrypt(), hwid);//Change how to pull the password
             var result = await resultSender;
-            SettingsHandler settings = this.checkBox1.Checked ? new SettingsHandler("Remember", new string[] {textBox1.Text, textBox2.Text}, true) : new SettingsHandler("Forget", new string[0], false); //Change how to store the password
+            SettingsHandler settings = this.checkBox1.Checked ? new SettingsHandler("Remember", new string[] { textBox1.Text, textBox2.Text }, true) : new SettingsHandler("Forget", new string[0], false); //Change how to store the password
             return result;
         }
     }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RaidHelper
 {
@@ -10,7 +6,7 @@ namespace RaidHelper
     {
         private IntPtr ClassPtr;
         private IntPtr Handle;
-        public PrimaryBonus(IntPtr handle,IntPtr ptr)
+        public PrimaryBonus(IntPtr handle, IntPtr ptr)
         {
             Handle = handle;
             ClassPtr = ptr;

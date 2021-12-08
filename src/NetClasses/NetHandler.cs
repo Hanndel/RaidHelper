@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Text;
-using System.Net.Sockets;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace RaidHelper
@@ -19,16 +20,27 @@ namespace RaidHelper
             byte[] bytes = new byte[1024];
             address = await PublicIp();
             IPAddress ipAddress = IPAddress.Parse(await GitServer());
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 65439);
+            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 60099);
 
             Socket sender = new Socket(ipAddress.AddressFamily,
             SocketType.Stream, ProtocolType.Tcp);
+
             sender.Connect(remoteEP);
+
 
             Console.WriteLine("Socket connected to {0}",
             sender.RemoteEndPoint.ToString());
-            Console.WriteLine(user + "," + CreateMD5(user) + "," + CreateMD5(password) + "," + address + "," + hwid);
-            byte[] msg = Encoding.ASCII.GetBytes(user + "," + CreateMD5(user) + "," + CreateMD5(password) + "," + address + "," + hwid);
+            RequestForm request = new RequestForm
+            {
+                kindOf = "Auth",
+                user = user,
+                password = CreateMD5(password),
+                hwid = hwid,
+                ip = address,
+            };
+            string stringToSend = JsonSerializer.Serialize(request);
+            byte[] msg = Encoding.ASCII.GetBytes(stringToSend);
+            Console.WriteLine(stringToSend);
 
             int bytesSent = sender.Send(msg);
 
@@ -54,9 +66,9 @@ namespace RaidHelper
 
             byte[] IpData;
             byte[] IvData;
-            HttpResponseMessage IpResponse = await client.GetAsync("https://raw.githubusercontent.com/Hanndel/Something/master/ip.txt");
+            HttpResponseMessage IpResponse = await client.GetAsync("");
             IpResponse.EnsureSuccessStatusCode();
-            HttpResponseMessage IvResponse = await client.GetAsync("https://raw.githubusercontent.com/Hanndel/Something/master/Iv.txt");
+            HttpResponseMessage IvResponse = await client.GetAsync("");
             IvResponse.EnsureSuccessStatusCode();
             IpData = await IpResponse.Content.ReadAsByteArrayAsync();
             IvData = await IvResponse.Content.ReadAsByteArrayAsync();

@@ -95,7 +95,7 @@ namespace RaidHelper.gui
             this.ArtifactListView.TabIndex = 1;
             this.ArtifactListView.UseCompatibleStateImageBehavior = false;
             this.ArtifactListView.View = System.Windows.Forms.View.Details;
-            this.ArtifactListView.ItemActivate += new System.EventHandler(this.OnClickHero);
+            this.ArtifactListView.ItemActivate += new System.EventHandler(this.OnClickArtifact);
             // 
             // columnHeader0
             // 

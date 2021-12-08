@@ -50,7 +50,6 @@
             this.Name = "HeroWindow";
             this.Text = "HeroWindow";
             this.ResumeLayout(false);
-
         }
 
         #endregion

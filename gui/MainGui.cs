@@ -1,10 +1,7 @@
 ﻿using System;
-using RaidHelper;
-using System.Threading;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections.Generic;
 
 namespace RaidHelper.gui
 {
@@ -62,7 +59,7 @@ namespace RaidHelper.gui
             StartHeroesScan();
             StartArtifactScan();
         }
-        private  async void StartHeroesScan()
+        private async void StartHeroesScan()
         {
             HeroDict = await Task.Run(() => GuiAttach.HeroesScan(this.HeroesScan, this.HeroListView));
         }
@@ -73,7 +70,7 @@ namespace RaidHelper.gui
         private void OnClickArtifact(object sender, System.EventArgs e)
         {
 
-            Console.WriteLine("Artifact "+sender);
+            Console.WriteLine("Artifact " + sender);
         }
         private void OnClickHero(object sender, System.EventArgs e)
         {

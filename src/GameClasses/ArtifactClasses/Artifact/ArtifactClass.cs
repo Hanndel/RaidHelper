@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RaidHelper
 {
@@ -36,7 +33,7 @@ namespace RaidHelper
         public void ArtifactParser(IntPtr ptr)
         {
             IntPtr ArtifactPointer = ReturnRead(ptr + 0x18);
-            this.id = (int)(long)(ReturnRead(ArtifactPointer+0x10));
+            this.id = (int)(long)(ReturnRead(ArtifactPointer + 0x10));
             this.revision = (long)ReturnRead(ArtifactPointer + 0x14);
             this.upgradeTime = (int)(long)(ReturnRead(ArtifactPointer + 0x18));
             this.sellprice = (int)(long)(ReturnRead(ArtifactPointer + 0x28));
@@ -70,13 +67,13 @@ namespace RaidHelper
         }
         private string SetKindId(int id)
         {
-            string[] Sets = new string[] {"None","Life","Fatal","Defense","Speed","Critical Chance","Critical Damage","Accuracy","Resistance","LifeSteal","Fury","Daze","Cursed","Frost", "Frenzy", "Regeneration", "Immunity", "Shield", "Relentless", "Savage", "Destroy", "Stun", "Toxic", "Taunting","Retaliation", "Avenging", "Stalwart", "Reflex", "Curing", "Cruel", "Immortal","Divine Offence", "Divine Critical Rate", "Divine Life", "Divine Speed", "Swift Parry", "Deflection", "Resilience", "Perception", "AffinityBreaker", "Untouchable", "Fatal", "FrostBite", "Bloodthirst", "Guardian", "Fortitude", "Lethal","IgnoreCD", "RemoveDebuff", "ShieldAcessory", "ChangeHitType", "CounterattackAcessory"};
-            return id <= Sets.Length ? Sets[id]: Sets[0];
+            string[] Sets = new string[] { "None", "Life", "Fatal", "Defense", "Speed", "Critical Chance", "Critical Damage", "Accuracy", "Resistance", "LifeSteal", "Fury", "Daze", "Cursed", "Frost", "Frenzy", "Regeneration", "Immunity", "Shield", "Relentless", "Savage", "Destroy", "Stun", "Toxic", "Taunting", "Retaliation", "Avenging", "Stalwart", "Reflex", "Curing", "Cruel", "Immortal", "Divine Offence", "Divine Critical Rate", "Divine Life", "Divine Speed", "Swift Parry", "Deflection", "Resilience", "Perception", "AffinityBreaker", "Untouchable", "Fatal", "FrostBite", "Bloodthirst", "Guardian", "Fortitude", "Lethal", "IgnoreCD", "RemoveDebuff", "ShieldAcessory", "ChangeHitType", "CounterattackAcessory" };
+            return id <= Sets.Length ? Sets[id] : Sets[0];
         }
-        
+
         private string RarityId(int id)
         {
-            string[] Rarity = new string[] {"Unknown", "Common", "Uncommon", "Rare", "Epic", "Legendary" };
+            string[] Rarity = new string[] { "Unknown", "Common", "Uncommon", "Rare", "Epic", "Legendary" };
             return id <= Rarity.Length ? Rarity[id] : Rarity[0];
         }
 
@@ -99,7 +96,7 @@ namespace RaidHelper
             int amount = (int)ReturnRead(WhereTheyAt + 0x18);
             for (int i = 0; i < amount; i++)
             {
-                IntPtr bonus = ReturnRead(WhereTheyAt+(0x20 + (i * 0x8)));
+                IntPtr bonus = ReturnRead(WhereTheyAt + (0x20 + (i * 0x8)));
                 _array.Add(new SecondaryBonuses(handle, bonus));
 
             }

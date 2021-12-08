@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace RaidHelper
+﻿namespace RaidHelper
 {
     public class LocalEncrypt
     {
